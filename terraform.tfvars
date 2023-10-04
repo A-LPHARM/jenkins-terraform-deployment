@@ -16,6 +16,6 @@ db_username            = "Admin"
 db_password            = "He5n4rypha7r2m6a5cy51ED"
 storage                = "200"
 storage_type           = "gp3"
-# user_data              = filebase64("../script.tpl")
+user_data              = "script.tpl"
 domain_name            = "alpharm.click"
 sub_domain             =  "www"
