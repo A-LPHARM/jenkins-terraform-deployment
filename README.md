@@ -67,4 +67,9 @@ click on tools
 
 then install the terraform plugin 
 which have been pre-installed 
-add the path to the terraform
+add the path where terraform is installed
+
+# /var/local/bin
+
+
+build the pipeline
