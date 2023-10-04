@@ -1,6 +1,11 @@
 pipeline {
     agent any
-
+    
+    environment {
+		AWS_DEFAULT_REGION='us-east-1'
+		AWS_CREDENTIALS = credentials('awscred') 
+	}
+    
     stages {
         stage('git clone') {
             steps {
@@ -11,19 +16,20 @@ pipeline {
         stage('terraform init') {
             steps {
                 sh 'pwd'
-                sh 'terraform init'
+                sh 'terraform init -reconfigure'
             }
         }
         
-        stage('terraform apply') {
+        stage('terraform plan') {
             steps {
-                sh 'terraform apply --auto-approve'
+                sh 'terraform plan'
             }
         }
         
-       stage('terraform destroy') {
+        stage('terraform action') {
             steps {
-                sh 'terraform destroy --auto-approve'
+                echo "terraform action is --> ${action}"
+                sh ("terraform ${action} --auto-approve")
             }
         }
     }

@@ -49,10 +49,10 @@ then run
 
 once the jenkins is running 
 exec into the container and 
-# docker exec -t <container-id> sh
+<!-- docker exec -t <container-id> sh -->
 
 then 
-# cat var/jenkins_home/secrets/initialAdmin/Password
+<!-- cat var/jenkins_home/secrets/initialAdmin/Password -->
 
 on the console 
 
@@ -69,7 +69,92 @@ then install the terraform plugin
 which have been pre-installed 
 add the path where terraform is installed
 
-# /var/local/bin
+<!-- /var/local/bin -->
 
+THEN IN THE AWS CREDENTIALS 
 
-build the pipeline
+CLICK MANAGE JENKINS THEN
+CLICK CRENDENTIALS 
+
+CLICK ON GLOBAL AND ADD YOUR CREDENTIALS
+
+# build the pipeline
+
+by clicking new-item
+
+click on pipeline 
+
+then in the pipeline script 
+insert this
+
+<!-- pipeline {
+    agent any
+    
+    environment {
+		AWS_DEFAULT_REGION='us-east-1'
+		AWS_CREDENTIALS = credentials('awscred') 
+	}
+    
+    stages {
+        stage('git clone') {
+            steps {
+                git branch: 'main', url: 'https://github.com/A-LPHARM/jenkins-terraform-deployment'
+            }
+        }
+        
+        stage('terraform init') {
+            steps {
+                sh 'pwd'
+                sh 'terraform init -reconfigure'
+            }
+        }
+        
+        stage('terraform plan') {
+            steps {
+                sh 'terraform plan'
+            }
+        }
+        
+        stage('terraform action') {
+            steps {
+                echo "terraform action is --> ${action}"
+                sh 'terraform {action} --auto-approve'
+            }
+        }
+    }
+}
+ -->
+
+in the pipeline i integrate the git clone using the pipeline syntax assist
+then 
+authenticate with an environment 
+instead of installing the aws cli in your container 
+i use the environment 
+
+     <!-- environment {
+		AWS_DEFAULT_REGION='us-east-1'
+		AWS_CREDENTIALS = credentials('awscred') 
+	} -->
+
+then the next stage is to create a script command for 
+terraform init
+terraform plan 
+terraform apply 
+terraform destroy
+
+for the terraform apply and destroy 
+
+i integrate a parameter for easy use of the apply and destroy
+
+stage('terraform action') {
+            steps {
+                echo "terraform action is --> ${action}"
+                sh 'terraform {action} --auto-approve'
+            }
+        }
+
+on the section 
+PARAMETER
+THEN USE ACTION TAG
+
+THANK YOU
