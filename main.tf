@@ -6,7 +6,7 @@ provider "aws" {
 
 # create vpc
 module "vpc" {
-    source = "../project-terraform/modules/dynamodb-henry"
+    source = "./modules/dynamodb"
     aws_region              = var.aws_region
     henryproject            = var.henryproject
     vpc_cidr                = var.vpc_cidr
@@ -18,12 +18,12 @@ module "vpc" {
 
 # security
 module "security" {
-  source = "../project-terraform/modules/security"
+  source = "./modules/security"
   vpc_id = module.vpc.vpc_id
 }
 
 module "application_load_balancer" {
-  source = "../project-terraform/modules/alb"
+  source = "./modules/alb"
   henryproject        = module.vpc.henryproject
   ec2_instances       = module.ec2.ec2_instances
   ec2_instances2      = module.ec2.ec2_instances2
@@ -35,7 +35,7 @@ module "application_load_balancer" {
 
 #database
 module "database" {
-  source = "../project-terraform/modules/database"
+  source = "./modules/database"
   henryproject               = module.vpc.henryproject
   engine                     = var.engine
   engine_version             = var.engine_version
@@ -51,7 +51,7 @@ module "database" {
 }
 
  module "route_53" {
-   source   =  "../project-terraform/modules/route_53"
+   source   =  "./modules/route_53"
    #domain_site = module.route_53.domain_site
    domain_name = var.domain_name
    sub_domain  = var.sub_domain
@@ -60,7 +60,7 @@ module "database" {
  }
 
 module "asg" {
-  source = "../project-terraform/modules/asg"
+  source = "./modules/asg"
   henryproject             = module.vpc.henryproject
   ami_id                   = var.ami_id
   ec2_instances            = module.ec2.ec2_instances
@@ -73,7 +73,7 @@ module "asg" {
 }
 
 module "ec2" {
-  source                 = "../project-terraform/modules/ec2"
+  source                 = "./modules/ec2"
   ami_id                 = var.ami_id
   instance_type          = var.instance_type
   key_name               = var.key_name
