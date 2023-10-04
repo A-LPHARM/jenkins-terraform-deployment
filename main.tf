@@ -6,7 +6,7 @@ provider "aws" {
 
 # create vpc
 module "vpc" {
-    source = "./modules/dynamodb"
+    source = "./modules/dynamodb-henry"
     aws_region              = var.aws_region
     henryproject            = var.henryproject
     vpc_cidr                = var.vpc_cidr
