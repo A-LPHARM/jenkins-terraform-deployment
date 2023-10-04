@@ -1,0 +1,30 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('git clone') {
+            steps {
+                git branch: 'main', url: 'https://github.com/A-LPHARM/jenkins-terraform-deployment'
+            }
+        }
+        
+        stage('terraform init') {
+            steps {
+                sh 'pwd'
+                sh 'terraform init'
+            }
+        }
+        
+        stage('terraform apply') {
+            steps {
+                sh 'terraform apply --auto-approve'
+            }
+        }
+        
+       stage('terraform destroy') {
+            steps {
+                sh 'terraform destroy --auto-approve'
+            }
+        }
+    }
+}
