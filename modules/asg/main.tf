@@ -52,5 +52,5 @@ resource "aws_autoscaling_group" "asg" {
 }
 
 data "template_file" "user_data" {
-  template = filebase64("${path.module}./script.tpl")
+  template = filebase64("${path.module}/script.tpl")
 }
