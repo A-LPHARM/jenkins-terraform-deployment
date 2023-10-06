@@ -37,7 +37,10 @@ RUN apt-get update && apt-get install -y docker-ce-cli
 USER jenkins
 RUN jenkins-plugin-cli --plugins "blueocean docker-workflow" -->
 
-then run
+RUN 
+4. docker run -t build jenkins .
+
+5. then run
 
 <!-- docker run --name jenkins-blueocean --restart=on-failure --detach \
   --network jenkins --env DOCKER_HOST=tcp://docker:2376 \
