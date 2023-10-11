@@ -4,7 +4,15 @@ STEPS TO FOLLOW IN SETTING UP
 
 This guide explains how to prepare a Dockerfile that includes Docker in Docker (DinD) and installs Terraform within the root image. Follow the Jenkins documentation at [Jenkins Docker Installation](https://www.jenkins.io/doc/book/installing/docker/) for reference.
 
-1. **Create a Network**
+1. **docker-compose**
+    you can use the docker compose file already created 
+    then run 
+    ```shell 
+    docker compose up -d --build
+    ```
+    this builds the entire dockerfile and docker-compose file to create your jenkins server necessary to implement your terraform deployment then you configure your jenkins or follow this steps for manual installation
+
+2. **Create a Network**
 
    First, create a Docker network for Jenkins:
 
@@ -12,7 +20,7 @@ This guide explains how to prepare a Dockerfile that includes Docker in Docker (
    docker network create jenkins
    ```
 
-2. **Create the Docker Image**
+3. **Create the Docker Image**
 
    Create a Docker image for DinD to act as a Jenkins node:
 
@@ -26,7 +34,7 @@ This guide explains how to prepare a Dockerfile that includes Docker in Docker (
      docker:dind --storage-driver overlay2
    ```
 
-3. **Customize Your Dockerfile**
+4. **Customize Your Dockerfile**
 
    Customize your Dockerfile to include Terraform pre-installed in the root image. You can use the following example:
 
@@ -56,7 +64,7 @@ This guide explains how to prepare a Dockerfile that includes Docker in Docker (
    docker build -t jenkins .
    ```
 
-4. **Start Jenkins**
+5. **Start Jenkins**
 
    Start Jenkins with the Docker image:
 
@@ -70,7 +78,7 @@ This guide explains how to prepare a Dockerfile that includes Docker in Docker (
      myjenkins-blueocean:2.414.2-1
    ```
 
-5. **Initial Setup**
+6. **Initial Setup**
 
    Once Jenkins is running, access the container:
 
@@ -86,11 +94,11 @@ This guide explains how to prepare a Dockerfile that includes Docker in Docker (
 
    Follow the [Jenkins installation guide](https://www.jenkins.io/doc/book/installing/docker/) for detailed setup instructions.
 
-6. **Install Plugins**
+7. **Install Plugins**
 
    Install the required Jenkins plugins, including the Terraform plugin and AWS credentials plugin, via the Jenkins web interface. Add your AWS credentials in Jenkins.
 
-7. **Build the Pipeline**
+8. **Build the Pipeline**
 
    Create a new pipeline by following these steps:
 
